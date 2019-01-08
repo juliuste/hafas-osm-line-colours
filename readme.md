@@ -45,6 +45,20 @@ const main = async () => {
 }
 ```
 
+Since the lines list returned by `osm-transit-lines` tends to be quite large, the module also exposes two helper methods that allow you to transform the lines list into a more memory-efficient array (that can also be stored) from which you can create a line colour client as well:
+
+```js
+const { linesToPoints, createLineColourClientFromPoints } = require('hafas-osm-line-colours')
+
+const main = async () => {
+	const berlinBbox = { south: 52.3418234221, north: 52.6697240587, west: 13.0882097323, east: 13.7606105539 }
+	const berlinTransitLines = await osmTransitLines(berlinBbox, { wikidata: true }) // see `osm-transit-lines` docs
+
+	const berlinTransitLinePoints = linesToPoints(berlinTransitLines)
+	const { legLineColour, departureOrArrivalLineColour } = createLineColourClientFromPoints(berlinTransitLines)
+}
+```
+
 ## Contributing
 
 If you found a bug or want to propose a feature, feel free to visit [the issues page](https://github.com/juliuste/hafas-osm-line-colours/issues).
