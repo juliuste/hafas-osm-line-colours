@@ -1,6 +1,6 @@
 {
 	"name": "hafas-osm-line-colours",
-	"version": "0.1.0",
+	"version": "0.1.1",
 	"description": "Match HAFAS legs or departures/arrivals with OpenStreetMap transit line colours.",
 	"keywords": [
 		"hafas",
