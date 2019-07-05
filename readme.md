@@ -34,14 +34,14 @@ const main = async () => {
 	// departures/arrivals
 	const virchowKlinikumBerlin = '000730855'
 	const [departure] = await hafas.departures(virchowKlinikumBerlin) // next train is a tram 50
-	const departureLineColour = departureOrArrivalLineColour(departure) // '#36ab94' (colour of tram 50), null if no matching colour was found
+	const departureLineColour = departureOrArrivalLineColour(departure) // { backgroundColour: '#36ab94', textColour: null } (colour of tram 50), null if no matching background colour was found
 	const [arrival] = await hafas.arrivals(virchowKlinikumBerlin) // next train is a tram M13
-	const arrivalLineColour = departureOrArrivalLineColour(arrival) // '#00cc00' (colour of tram M13), null if no matching colour was found
+	const arrivalLineColour = departureOrArrivalLineColour(arrival) // { backgroundColour: '#00cc00', textColour: null } (colour of tram M13), null if no matching background colour was found
 
 	const zehlendorf = '008089098'
 	const mexikoplatz = '008089023'
 	const [journey] = await hafas.journeys(zehlendorf, mexikoplatz) // only leg is an S1 train
-	const lineColour = legLineColour(journey.legs[0]) // '#d474ae' (colour of S1), null if no matching colour was found
+	const lineColour = legLineColour(journey.legs[0]) // { backgroundColour: '#d474ae', textColour: null } (colour of S1), null if no matching background colour was found
 }
 ```
 

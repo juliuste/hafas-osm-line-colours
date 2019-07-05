@@ -28,30 +28,30 @@ tape('hafas-osm-line-colours', async t => {
 		t.ok(mexikoplatz.id, 'precondition')
 		const departuresAtMexikoplatz = await hafas.departures(mexikoplatz.id, { duration: 8 * 60 })
 		t.ok(departuresAtMexikoplatz.length >= 5, 'precondition')
-		const s1Departure = departuresAtMexikoplatz.find(d => d.line.name === 'S 1')
+		const s1Departure = departuresAtMexikoplatz.find(d => d.line.product === 'suburban' && d.line.name === 'S 1')
 		t.ok(s1Departure, 'precondition')
 		const s1Colour = client.departureOrArrivalLineColour(s1Departure)
-		t.ok(s1Colour === '#d474ae', 's1 mexikoplatz colour')
+		t.deepEqual(s1Colour, { backgroundColour: '#d474ae', textColour: null }, 's1 mexikoplatz colour')
 
-		// departures at osloer
-		const [osloer] = await hafas.locations('Osloer Str. Berlin')
-		t.ok(osloer.id, 'precondition')
-		const departuresAtOsloer = await hafas.departures(osloer.id, { duration: 8 * 60 })
-		t.ok(departuresAtOsloer.length >= 5, 'precondition')
-		const u8Departure = departuresAtOsloer.find(d => d.line.name === 'U 8')
+		// departures at moritzplatz
+		const [moritzplatz] = await hafas.locations('Moritzplatz Berlin')
+		t.ok(moritzplatz.id, 'precondition')
+		const departuresAtMoritzplatz = await hafas.departures(moritzplatz.id, { duration: 8 * 60 })
+		t.ok(departuresAtMoritzplatz.length >= 5, 'precondition')
+		const u8Departure = departuresAtMoritzplatz.find(d => d.line.product === 'subway' && d.line.name === 'U 8')
 		t.ok(u8Departure, 'precondition')
 		const u8Colour = client.departureOrArrivalLineColour(u8Departure)
-		t.ok(u8Colour === '#055a99', 'u8 osloer colour')
+		t.deepEqual(u8Colour, { backgroundColour: '#055a99', textColour: null }, 'u8 moritzplatz colour')
 
-		// departures at osloer
+		// departures at virchow
 		const [virchow] = await hafas.locations('Virchow-Klinikum')
 		t.ok(virchow.id, 'precondition')
 		const departuresAtVirchow = await hafas.departures(virchow.id, { duration: 8 * 60 })
 		t.ok(departuresAtVirchow.length >= 5, 'precondition')
-		const tram50Departure = departuresAtVirchow.find(d => d.line.name === 'STR 50')
+		const tram50Departure = departuresAtVirchow.find(d => d.line.product === 'tram' && d.line.name === '50')
 		t.ok(tram50Departure, 'precondition')
 		const tram50Colour = client.departureOrArrivalLineColour(tram50Departure)
-		t.ok(tram50Colour === '#36ab94', 'tram 50 virchow colour')
+		t.deepEqual(tram50Colour, { backgroundColour: '#36ab94', textColour: null }, 'tram 50 virchow colour')
 
 		const [adlershof] = await hafas.locations('Adlershof')
 		t.ok(adlershof.id, 'precondition')
@@ -63,10 +63,10 @@ tape('hafas-osm-line-colours', async t => {
 			results: 5
 		})
 		const legs = flatMap(journeys, j => j.legs)
-		const tram63Leg = legs.find(l => l.line.name === 'STR 63')
+		const tram63Leg = legs.find(l => l.line.product === 'tram' && l.line.name === '63')
 		t.ok(tram63Leg, 'precondition')
 		const tram63Colour = client.legLineColour(tram63Leg)
-		t.ok(tram63Colour === '#009999', 'tram 63 adlershof->spindlersfeld colour')
+		t.deepEqual(tram63Colour, { backgroundColour: '#009999', textColour: null }, 'tram 63 adlershof->spindlersfeld colour')
 	}
 
 	t.end()
