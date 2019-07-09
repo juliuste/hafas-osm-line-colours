@@ -34,7 +34,7 @@
 	"dependencies": {
 		"condense-whitespace": "^1.0.0",
 		"kdbush": "^3.0.0",
-		"lodash": "^4.17.11",
+		"lodash": "^4.17.13",
 		"parse-color": "^1.0.0"
 	},
 	"devDependencies": {
